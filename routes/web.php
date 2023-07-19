@@ -31,3 +31,5 @@ Route::get('banda/{banda}',[BandaController::class,'show'])->name('banda.show');
 Route::get('banda/{banda}/edit',[BandaController::class,'edit'])->name('banda.edit');
 //se recomienda put para actualizar
 Route::put('banda/{banda}/update',[BandaController::class,'update'])->name('banda.update');
+//se recomienda DELETE para eliminar
+Route::delete('banda/{banda}',[BandaController::class,'destroy'])->name('banda.destroy');

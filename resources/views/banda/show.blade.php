@@ -9,6 +9,12 @@
 <p><strong>Categoria: </strong>{{$banda->categoria}}</p>
 
 <p>{{$banda->descripcion}}</p>
+{{-- se pone en form ya que los link  usa el  get pero necesitamos es delete--}}
+<form action="{{route('banda.destroy',$banda)}}" method="POST">
+    @csrf
+    @method('delete')
+    <button type="submit">Eliminar</button>
+</form>
 @endsection
 
 

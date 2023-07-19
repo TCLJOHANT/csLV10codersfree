@@ -40,4 +40,8 @@ class BandaController extends Controller
         return redirect()->route('banda.show',$banda);
 
     }
+    public function destroy(Banda $banda){
+        $banda->delete();
+        return redirect()->route('banda.index');
+    }
 }
