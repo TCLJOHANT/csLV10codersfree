@@ -8,18 +8,37 @@
     @csrf
     <label for="">
         Nombre:
-        <input type="text" name="name">
+        <input type="text" name="name" value="{{old('name')}}">
     </label>
+
+     @error('name')
+      <br>
+      <small>*{{$message }}</small>
+      <br>   
+     @enderror
+
     <br>
     <label for="">
         Descripcion
-        <textarea name="descripcion"></textarea>
+        <textarea name="descripcion">{{old('descripcion')}}</textarea>
     </label>
+    
+    @error('descripcion')
+    <br>
+    <small>*{{$message /*viene de resources/lang*/}}</small>
+    <br>   
+   @enderror
     <br>
     <label for="">
         Categoria
-        <input type="text" name="categoria">
+        <input type="text" name="categoria" value="{{old('categoria')}}">
     </label>
+    
+    @error('categoria')
+    <br>
+    <small>*{{$message}}</small>
+    <br>   
+   @enderror
     <button type="submit">Enviar form</button>
 
 

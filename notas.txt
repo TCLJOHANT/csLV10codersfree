@@ -1,48 +1,75 @@
-            //MIGRACIONES\\
-php artisan migrate ==  realizar migracion
-php artisan migrate:roolback ==revertir la ultima migracion
-php artisan migrate:fresh == deshace todas las migraciones anteriores (no importa si metodo down (eliminacion de tabla) esta incorrecto o no existe)
-                            y luego ejecuta todas las migraciones nuevamente 
-                            eliminando todas las tablas y datos de la base de datos.
-php artisan migrate:refresh == deshace todas las migraciones anteriores (si metododown (eliminacion de tabla) esta incorrecto o no existe no la elimina)
-                            y luego ejecuta todas las migraciones nuevamente 
-                            eliminando todas las tablas y datos de la base de datos. 
-                            ademàs de Ejecuta los seeders (si los tiene) para poblar la base de datos .
-php artisan migrate:reset == es utilizado para deshacer todas las migraciones y eliminar las tablas y
-                             datos creados por ellas en la base de datos. (solo revierte las migraciones ejecutadas a través de Laravel, no afecta a ninguna otra tabla o datos que no estén relacionados con las migraciones.)
- //seeders
-php artisan db:seed es utilizado para ejecutar los seeders de la base de datos en Laravel, lo que permite insertar datos 
-                        de prueba o semilla en la base de datos de manera automatizada
+//MIGRACIONES\\
+    php artisan migrate ==  realizar migracion
+    php artisan migrate:roolback ==revertir la ultima migracion
+    php artisan migrate:fresh == deshace todas las migraciones anteriores (no importa si metodo down (eliminacion de tabla) esta incorrecto o no existe)
+                                y luego ejecuta todas las migraciones nuevamente 
+                                eliminando todas las tablas y datos de la base de datos.
+    php artisan migrate:refresh == deshace todas las migraciones anteriores (si metododown (eliminacion de tabla) esta incorrecto o no existe no la elimina)
+                                y luego ejecuta todas las migraciones nuevamente 
+                                eliminando todas las tablas y datos de la base de datos. 
+                                ademàs de Ejecuta los seeders (si los tiene) para poblar la base de datos .
+    php artisan migrate:reset == es utilizado para deshacer todas las migraciones y eliminar las tablas y
+                                datos creados por ellas en la base de datos. (solo revierte las migraciones ejecutadas a través de Laravel, no afecta a ninguna otra tabla o datos que no estén relacionados con las migraciones.)
+ //SEEDERS
+    php artisan db:seed es utilizado para ejecutar los seeders de la base de datos en Laravel, lo que permite insertar datos 
+                            de prueba o semilla en la base de datos de manera automatizada
 
-
-            SOLUCION DE CARGA EXTENCION MSTRING (necesaria para pasar seedera a base de datos)
-                Instala la extensión mbstring utilizando el administrador de paquetes de tu sistema operativo. Por ejemplo, en Ubuntu puedes ejecutar 
+            SOLUCION DE CARGA EXTENCION MSTRING (necesaria para pasar seeder a base de datos)
+                Instala la extensión mbstring utilizando el administrador de paquetes de tu sistema operativo.  Ubuntu puedes ejecutar 
                 sudo apt-get install php-mbstring y en CentOS puedes ejecutar sudo yum install php-mbstring.
+    /ejecuta fresh luego seed\
+    Php artisan migrate:flesh --seed 
 
-    Php artisan migrate:flesh --seed == ejecuta fresh luego seed
+// ELOQUEND \\
+    /:consultas simples
+        App\Models\Banda;
+        $banda = Banda::all(); //imprimir tosdos los registros en una coleccion
+        $bandas = Banda::where('categoria','trap')->get(); //registros filtrados por categoria
+        $bandas = Banda::where('categoria','trap')->orderBy('id','desc')->get(); //sacar registro en orden desentente y filtrado por categoria
+        $bandas = Banda::where('categoria','trap')->orderBy('name','asc')->get(); //registros en orden acendente por name
+        $bandas = Banda::where('categoria','trap')->orderBy('name','asc')->first(); //devuelve primer registro no mas
+        $bandas = Banda::Select('name','categoria')->get(); //devolver solo algunos atributos (campos)
+        $bandas = Banda::Select('name as title','categoria')->orderBy('name','asc')->where('categoria','trap')->get(); //cambiando nombre de un campo
+        $bandas = Banda::Select('name as title','categoria')->orderBy('name','asc')->where('categoria','trap')->take(2)->get(); //vevolviendo solo 2 registros
+        $bandas = Banda::where('name','NEFFEX')->first(); //vevolver registro con name especifico
+        $bandas = Banda::find(4); //devuelve registro con determinado id es lo mismo que ($bandas = Banda::where('id','4')->first();) pero laravle proporcion aesta facilidad.
+            
+    /consultas mas complejas
+        $bandas = Banda::where('id','>','10')->get(); //debuelve registros con id mayor a 10
+        $bandas = Banda::where('categoria','like','%ra%')->get(); //devuelve todos los registros de la tabla Banda cuya columna categoria contenga la subcadena "ra". 
+    /MUTADORES Y ACCESORES
+        dentro de modelo en donde deseo modificar
+        use Illuminate\Database\Eloquent\Casts\Attribute; =necesario para crear un mutador o accesor
+        ejemplo de mutador y accesor
+            protected function name():Attribute {
+            return new Attribute(
+                //(un accesor funciona cuando se hace consulta en base de datos) no modifica el valor en base de datos solo es para presentacion final
+                get: fn($value)=> ucwords($value), //funcion flecha
+                //(Un mutador es un método que define cómo se debe modificar un valor de atributo ANTES de guardarlo en la base de datos. )
+                set: function($value){  
+                return strtolower($value); //funcion normal
+                }
+            );
+        }
+    //validaciones de formularios
+        //antes de intentar guardar datos en store habitualmente,debo validar
+        //si hay algun fallo laravel redirecciona de nuevo al form
+               //aparte para asi evitar ensuciar el controlador alli colocar validaciones si son muchas o deseo personalizarlas
+                php artisan make:request StoreBanda
+                        'name'=>'required|max:10'
+        //para imprimir erros debo en vista poner: error aparecen en ingles, si deseo español ir a comunidad (gihub) y
+        //copiar las traducciones (carpeta es) en resources/lang/ y en config/app,php buscar:    'locale' => 'en' y cambiar a 'es',
+            @error('descripcion') = name de input
+                <br>
+                <small>*{{$message /*viene de resources/lang*/}}</small>
+                <br>
+            @enderror
+        //si usuario se oliva de un campo pagina se redirecciona borrando todo, para evitar esto en el input colocar
+            value="{{old('name')}}"   
+        //si deseo colocar ,uchas validaciones es mejor colocarlos en archivos 
+     
 
-    // ELOQUEND \\
-
-/:consultas simples
-    App\Models\Banda;
-    $banda = Banda::all(); //imprimir tosdos los registros en una coleccion
-    $bandas = Banda::where('categoria','trap')->get(); //registros filtrados por categoria
-    $bandas = Banda::where('categoria','trap')->orderBy('id','desc')->get(); //sacar registro en orden desentente y filtrado por categoria
-    $bandas = Banda::where('categoria','trap')->orderBy('name','asc')->get(); //registros en orden acendente por name
-    $bandas = Banda::where('categoria','trap')->orderBy('name','asc')->first(); //devuelve primer registro no mas
-    $bandas = Banda::Select('name','categoria')->get(); //devolver solo algunos atributos (campos)
-    $bandas = Banda::Select('name as title','categoria')->orderBy('name','asc')->where('categoria','trap')->get(); //cambiando nombre de un campo
-    $bandas = Banda::Select('name as title','categoria')->orderBy('name','asc')->where('categoria','trap')->take(2)->get(); //vevolviendo solo 2 registros
-    $bandas = Banda::where('name','NEFFEX')->first(); //vevolver registro con name especifico
-    $bandas = Banda::find(4); //devuelve registro con determinado id es lo mismo que ($bandas = Banda::where('id','4')->first();) pero laravle proporcion aesta facilidad.
-        
-/consultas mas complejas
-    $bandas = Banda::where('id','>','10')->get(); //debuelve registros con id mayor a 10
-    $bandas = Banda::where('categoria','like','%ra%')->get(); //devuelve todos los registros de la tabla Banda cuya columna categoria contenga la subcadena "ra". 
-
-
-
-'#%J.A.C.A88COntR@Cna~'
+'#%J.A.C.A88COntR@Cna~' /contraseña 
 
 
 

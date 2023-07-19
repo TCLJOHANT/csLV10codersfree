@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Banda;
-
+use App\Http\Requests\StoreBanda; //request
 class BandaController extends Controller
 {
     public function index () {
         $banda = Banda::orderBy('id','desc')->paginate(); //paginate()me envia a vista solo una parte de los registros
         return view('banda.index', compact('banda'));
     }
+
     public function create (){
-        return  view('banda.create'); 
+        return view('banda.create');
     }
-    public function store (Request $request) {
+    public function store (StoreBanda $request) {
         $banda = new Banda();
         $banda->name = $request->name;
         $banda->categoria = $request->descripcion;
@@ -32,6 +33,13 @@ class BandaController extends Controller
         return view('banda.edit', compact('banda'));
     }
     public function update(Request $request,Banda $banda){
+          //valida formulario (si falta algo reenvia de nuevo a pagina de formulario)
+          $request->validate([
+            'name'=>'required',
+            'descripcion'=>'required',
+            'categoria'=>'required'
+
+        ]);
         $banda->name = $request->name;
         $banda->categoria = $request->descripcion;
         $banda->descripcion = $request->categoria; 
