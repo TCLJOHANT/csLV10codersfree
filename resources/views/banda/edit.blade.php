@@ -19,6 +19,7 @@
    @enderror
 
     <br>
+    <input type="hidden" name="slug" value="slug">
     <label for="">
         Descripcion
         <textarea name="descripcion" >{{old('descripcion',$banda->descripcion)}}</textarea>

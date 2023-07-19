@@ -15,6 +15,7 @@ class BandaSeeder extends Seeder
     {
          $banda = new Banda();
          $banda->name = 'NEFFEX';
+         $banda->slug='neffex';
          $banda->descripcion = 'De EU es una banda FAVAORIT por TCL';
          $banda->categoria = 'HipHop, Rap';
          $banda->save();

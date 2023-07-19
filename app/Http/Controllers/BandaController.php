@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Banda;
 use App\Http\Requests\StoreBanda; //request
+use  Illuminate\Support\Str;
 class BandaController extends Controller
 {
     public function index () {
@@ -16,6 +17,9 @@ class BandaController extends Controller
         return view('banda.create');
     }
     public function store (StoreBanda $request) {
+        $request->merge([
+            'slug' => Str::slug($request->name),
+          ]);
         $banda =Banda::create($request->all()); //agarra todod los  datos de form y los guarda en base de datos pero ahi un problem de seguridad que se debe cooregir en el modelo
         return redirect()->route('banda.show',$banda);
     }
@@ -36,6 +40,10 @@ class BandaController extends Controller
             'categoria'=>'required'
 
         ]);
+
+        $request->merge([
+            'slug' => Str::slug($request->name),
+          ]);
         $banda->update($request->all());
         return redirect()->route('banda.show',$banda);
 
