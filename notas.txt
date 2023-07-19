@@ -67,7 +67,12 @@
         //si usuario se oliva de un campo pagina se redirecciona borrando todo, para evitar esto en el input colocar
             value="{{old('name')}}"   
         //si deseo colocar ,uchas validaciones es mejor colocarlos en archivos 
-     
+//RUtas con resources y modificar en caso de star inconforme
+    //si deseo traducir las urls (create,edit etc)
+          en documentacion buscar controladores, CRL F 'resourceVerbs'  y seguir los pasos
+    //si deseo modificar en este caso 'banda' (Route::resource('banda',BandaController::class); )
+    //pero sin afectar mi web (mis rutas), debo pasar el methodo names('banda')
+        Route::resource('bandaCambiado',BandaController::class)->names('banda'); 
 
 '#%J.A.C.A88COntR@Cna~' /contraseña 
 

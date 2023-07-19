@@ -16,7 +16,7 @@ class BandaController extends Controller
         return view('banda.create');
     }
     public function store (StoreBanda $request) {
-        $banda =Banda::created($request->all()); //agarra todod los  datos de form y los guarda en base de datos pero ahi un problem de seguridad que se debe cooregir en el modelo
+        $banda =Banda::create($request->all()); //agarra todod los  datos de form y los guarda en base de datos pero ahi un problem de seguridad que se debe cooregir en el modelo
         return redirect()->route('banda.show',$banda);
     }
     //mando variable a la vista (var rescatada de url la paso por esta funcion)
