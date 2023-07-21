@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BandaController;
 use Faker\Guesser\Name;
 
+use App\Mail\ContactanosMailable;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +31,8 @@ use Faker\Guesser\Name;
 Route::get('/',HomeController::class)->name('home');
 Route::resource('banda',BandaController::class); 
 Route::view('nosotros','nosotros')->name('nosotros');//se usa para contenido estatico (no requiere BD), busca directo en views mas no en un controlador 
+Route::get('contactanos',function(){
+    $correo = new ContactanosMailable;
+    Mail::to('jachate7@misena.edu.co')->send($correo);
+    return 'mensaje enviado con exito';
+})->name('contactanos');

@@ -74,9 +74,13 @@
     //pero sin afectar mi web (mis rutas), debo pasar el methodo names('banda')
         Route::resource('bandaCambiado',BandaController::class)->names('banda'); 
 //CURIOSIDADES
-    forma para darle un estilo a link si esta en el
-    forma corta de un if y else (si esta en la ruta aagregar clase active, si no nada)
-    {{route('banda.index')}}" class="{{request()->routeIs('banda.*') ? 'active' : ''}}
+    //darl  estilo a link si esta alli
+        forma corta de un if y else (si esta en la ruta aagregar clase active, si no nada)
+        {{route('banda.index')}}" class="{{request()->routeIs('banda.*') ? 'active' : ''}}
+    // enviar emails con Laravel (en este caso con mailtrap el cual se usa nne entorno de desarrollo )
+        tener cuenta de mailtrap Y pasar credenciales al .env
+    //CREAR UN MAILABLE y dentro configurar ruta de la vista y asunto en subject
+        php artisan make:mail ContactanosMailable
 
 
 '#%J.A.C.A88COntR@Cna~' /contraseña 
