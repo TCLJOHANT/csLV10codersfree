@@ -81,7 +81,15 @@
         tener cuenta de mailtrap Y pasar credenciales al .env
     //CREAR UN MAILABLE y dentro configurar ruta de la vista y asunto en subject
         php artisan make:mail ContactanosMailable
-
+    //alerta si se hizo una accion con exito (usando with)
+        //en controlador
+        return redirect(route('contactanos.index'))->with('info','mensaje enviado exitosamente');
+        //en vista
+            @if (session('info'))
+                <script>
+                alert("{{session('info')}}")
+                </script>
+            @endif
 
 '#%J.A.C.A88COntR@Cna~' /contraseña 
 

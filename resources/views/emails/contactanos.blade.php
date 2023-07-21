@@ -9,5 +9,8 @@
 <body>
     <h1>correo electronico</h1>
     <p>el primer correo enviado en laravle por tcl</p>
+    <p><strong>Nombre:</strong>{{$contacto['nombre']}}</p>
+    <p><strong>Correo:</strong>{{$contacto['correo']}}</p>
+    <p><strong>Mensaje:</strong>{{$contacto['mensaje']}}</p>
 </body>
 </html>
