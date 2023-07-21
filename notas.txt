@@ -73,8 +73,21 @@
     //si deseo modificar en este caso 'banda' (Route::resource('banda',BandaController::class); )
     //pero sin afectar mi web (mis rutas), debo pasar el methodo names('banda')
         Route::resource('bandaCambiado',BandaController::class)->names('banda'); 
+//CURIOSIDADES
+    forma para darle un estilo a link si esta en el
+    forma corta de un if y else (si esta en la ruta aagregar clase active, si no nada)
+    {{route('banda.index')}}" class="{{request()->routeIs('banda.*') ? 'active' : ''}}
+
 
 '#%J.A.C.A88COntR@Cna~' /contraseña 
+
+
+
+
+
+
+
+
 
 
 

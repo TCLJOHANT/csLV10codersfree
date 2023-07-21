@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>     <!--titulo cambiante en las diferentes vistas -->
     <!-- favicon -->
-    <!-- estilos -->
+    <style>
+        .active{
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <!-- hesder -->
-    <!-- nav -->
+
+    @include('layouts.partials.header')
     @yield('content')  <!--contenido cambiante en las diferentes vistas -->
     <!-- footer -->
     <!-- script  -->

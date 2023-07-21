@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BandaController;
+use Faker\Guesser\Name;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +15,6 @@ use App\Http\Controllers\BandaController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/',HomeController::class);
-
-
 // Route::get('banda',[BandaController::class,'index'])->name('banda.index');
 // Route::get('banda/create',[BandaController::class,'create'])->name('banda.create');
 // Route::post('banda/store',[BandaController::class,'store'])->name('banda.store');
@@ -26,4 +25,7 @@ Route::get('/',HomeController::class);
 // //se recomienda DELETE para eliminar
 // Route::delete('banda/{banda}',[BandaController::class,'destroy'])->name('banda.destroy');
 //acceder atodas lar rutas del controlador, esto es posible si se ha seguido las convenciones(nombre,metodos)
+
+Route::get('/',HomeController::class)->name('home');
 Route::resource('banda',BandaController::class); 
+Route::view('nosotros','nosotros')->name('nosotros');//se usa para contenido estatico (no requiere BD), busca directo en views mas no en un controlador 
