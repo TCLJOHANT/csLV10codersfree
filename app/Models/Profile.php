@@ -10,7 +10,6 @@ class Profile extends Model
     use HasFactory;
     //recuperar inforacion de usuario
     public function user(){
-        $user = User::find($this->user_id);
-        return $user;
+        return $this->belongsTo('App\Models\User');
     }
 }
