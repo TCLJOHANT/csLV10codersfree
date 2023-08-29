@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Permiso extends Model
 {
     use HasFactory;
-    //relacion uno a uno (inversa)
-    public function user(){
-        return $this->belongsTo('App\Models\User');
+    //Relacion muchos a muchos
+    public function roles(){
+        return $this->belongsToMany('App\Models\Role');
     }
 }

@@ -57,7 +57,18 @@ class User extends Authenticatable
      //RELACION UNO A UNO
      public function profile(){
         //filtre registro cuyo id coincida con el id actual luego traer el primer registro que encuentre
-        return $this->hasOne('App\Models\Profle');
+        return $this->hasOne('App\Models\Profile');
+     }
+     //RELACION  UNO A MUCHOS
+     public function posts(){
+        return $this->hasMany('App\Models\Post');
+     }
+     public function videos(){
+        return $this->hasMany('App\Models\Video');
+     }
+     //RELACION MUCHO A MUCHOS
+     public function roles(){
+        return $this->belongsToMany('App\Models\Role');
      }
     
 }

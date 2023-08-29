@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Video extends Model
 {
     use HasFactory;
-    //relacion uno a uno (inversa)
+    //Relacion uno a muchos inversa
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
