@@ -57,8 +57,7 @@ class User extends Authenticatable
      //RELACION UNO A UNO
      public function profile(){
         //filtre registro cuyo id coincida con el id actual luego traer el primer registro que encuentre
-        $profile = Profile::where('user_id',$this->id)->first();
-        return $profile;
+        return $this->hasOne('App\Model\Profle');
      }
     
 }
