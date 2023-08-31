@@ -70,5 +70,11 @@ class User extends Authenticatable
      public function roles(){
         return $this->belongsToMany('App\Models\Role');
      }
+     //RELACION UNO A UNO POLIMORFICA
+     //"imageable" es el metodo de Image para que use ese metodo
+     //$user->image()->create(['url'=>'url1'])//use esto para agregar,en automatico se agrega imageable:id y imageble_type
+     public function image(){
+         return $this->morphOne('App\Models\Image','imageable');
+     }
     
 }
